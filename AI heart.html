@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>心血管健康监测</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('C:\Users\h9978\Pictures\Screenshots\heatr.jpg'); /* 请替换为实际的心脏安全科普图片URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #ff4d4d;
+        }
+        .module {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ff4d4d;
+            border-radius: 10px;
+        }
+        #timer {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+        #uploaded-files {
+            list-style-type: none;
+            padding: 0;
+        }
+        #uploaded-files li {
+            margin: 5px 0;
+            text-align: left;
+        }
+        #ai-animation {
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+            background-image: url('C:\Users\h9978\Desktop\1740231250775_516.gif'); /* 请替换为实际的AI分析动画URL */
+            background-size: cover;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        #ai-result {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>心血管健康监测</h1>
+        <p>关注心脏健康，守护生命之源</p >
+
+        <div class="module">
+            <h2>数据采集模块</h2>
+            <button id="collect-button">开始数据采集</button>
+            <div id="timer">30秒</div>
+        </div>
+
+        <div class="module">
+            <h2>文件上传模块</h2>
+            <input type="file" id="file-input" multiple>
+            <ul id="uploaded-files"></ul>
+        </div>
+
+        <div class="module">
+            <h2>AI心音分析模块</h2>
+            <div id="ai-animation"></div>
+            <div id="ai-result">您的检测结果是：正常</div>
+        </div>
+    </div>
+
+    <script>
+        // 数据采集模块
+        const collectButton = document.getElementById('collect-button');
+        const timerDisplay = document.getElementById('timer');
+
+        collectButton.addEventListener('click', () => {
+            collectButton.disabled = true;
+            let timeLeft = 30;
+            timerDisplay.textContent = timeLeft;
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timerDisplay.textContent = '采集完成';
+                }
+            }, 1000);
+        });
+
+        // 文件上传模块
+        const fileInput = document.getElementById('file-input');
+        const uploadedFilesList = document.getElementById('uploaded-files');
+
+        fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const li = document.createElement('li');
+                const now = new Date();
+                li.textContent = `${file.name} - 上传时间：${now.toLocaleString()}`;
+                uploadedFilesList.appendChild(li);
+            }
+            fileInput.value = '';
+        });
+    </script>
+</body>
+</html>
